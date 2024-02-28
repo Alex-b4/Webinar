@@ -48,18 +48,19 @@ class Game:
         while True:
             dot_U = user.ask()
             while user.move(board2, dot_U):
+                if len(board2.dots_sh) == 0:
+                    print('Игра окончена.')
+                    print('Победил человек!!!')
+                    raise ValueError
                 dot_U = user.ask()
             dot_AI = ai.ask()
             while ai.move(board1, dot_AI):
+                if len(board1.dots_sh) == 0:
+                    print('Игра окончена.')
+                    print('Победил компьютер!!!')
+                    raise ValueError
                 dot_AI = ai.ask()
 
-            if len(board1.dots_sh) == 0 or len(board2.dots_sh) == 0:
-                print('Игра окончена.')
-                if len(board1.dots_sh) == 0:
-                    print('Победил компьютер!!!')
-                if len(board2.dots_sh) == 0:
-                    print('Победил человек!!!')
-                break
     def start(self):
         game.random_board()
         game.greet()
@@ -117,7 +118,11 @@ board2 = Board(pole_free=pole.copy(), pole_busy=[], doska_pl=doska2, ships=[], d
 
 user = User(board1, board2)
 ai = AI(board2, board1)
-
 game = Game()
-game.start()
+
+try:
+    game.start()
+except ValueError:
+    pass
+
 
