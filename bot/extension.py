@@ -26,5 +26,5 @@ class CryptoConverter:
         r = requests.get(f'https://min-api.cryptocompare.com/data/price?fsym={base_many}'
                          f'&tsyms={quote_many.lower()}')
         total_out = json.loads(r.content)[quote_many]
-        total_out = str(int(total_out) * int(amount))
+        total_out = str(float(total_out) * float(amount))
         return total_out
